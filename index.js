@@ -12,6 +12,12 @@
     const $warn = document.querySelector('#warning');
     
     
+    function nextStep() {
+        presentWord = inputWord;
+        $word.textContent = presentWord;
+        document.querySelector('input').value = ''
+    }
+
 
     function make_incorrect_list(){
         const incorrect = new Array(participants)
@@ -32,12 +38,14 @@
     }
 
     function isValidWord(){
+
+        
         
         if (typeof presentWord == "undefined"){
             presentWord = inputWord;
             console.log(presentWord)
-            $word.textContent = presentWord;
-            $warn.textContent = '';
+            
+            nextStep()
             return ;
         }
         console.log(presentWord[presentWord.length - 1], inputWord[0])
@@ -57,8 +65,7 @@
         else if (presentWord[presentWord.length - 1] === inputWord[0]){
             $warn.textContent = '맞았습니다.'
             is_false = false;
-            presentWord = inputWord;
-            $word.textContent = presentWord;
+            nextStep()
 
         }
 
