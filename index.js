@@ -12,7 +12,14 @@
     const $warn = document.querySelector('#warning');
     
     
-    
+
+    function make_incorrect_list(){
+        const incorrect = new Array(participants)
+        for (let i = 0; i < incorrect.length ; ++i) {
+            incorrect[i] = 3;
+    }
+        return incorrect
+}
 
     function countParticipants(num, participants){
         if (num + 1 > participants){
@@ -38,6 +45,12 @@
         if (presentWord[presentWord.length - 1] !== inputWord[0]){
             $warn.textContent = '틀렸습니다.'
             is_false = true;
+            incorrect_count[$order.textContent] -= 1;
+            if (incorrect_count[$order.textContent] < 0){
+                alert(`탈락자는 ${$order.textContent}번째 참가자`)
+                location.reload();
+            }
+
             return;
         }
 
@@ -75,6 +88,8 @@
         inputWord = event.target.value;
     }
 
+    incorrect_count = make_incorrect_list()
+    console.log(incorrect_count)
     $input.addEventListener('input', onInput)
     $button.addEventListener('click', onClickButton);
     
