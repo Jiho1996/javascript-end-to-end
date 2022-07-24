@@ -1,0 +1,19 @@
+*{
+    font-size: 20px;
+}
+#body_part{
+    position: absolute;
+    left: 50%;
+    top : 50%;
+    transform: translate(-50%, -50%);
+    background-color: whitesmoke;
+    
+}
+#warning {
+    font-weight: bold;
+    color: red;
+}
+
+#order{
+    font-weight: bold;
+}

@@ -51,9 +51,10 @@
         console.log(presentWord[presentWord.length - 1], inputWord[0])
 
         if (presentWord[presentWord.length - 1] !== inputWord[0]){
-            $warn.textContent = '틀렸습니다.'
+            
             is_false = true;
             incorrect_count[$order.textContent] -= 1;
+            $warn.textContent = `틀렸습니다. 남은기회 ${incorrect_count[$order.textContent]}`
             if (incorrect_count[$order.textContent] < 0){
                 alert(`탈락자는 ${$order.textContent}번째 참가자`)
                 location.reload();
@@ -92,9 +93,11 @@
         }
 
     const onInput = (event) =>{
+        
         inputWord = event.target.value;
     }
 
+    document.querySelector('input').focus();
     incorrect_count = make_incorrect_list()
     console.log(incorrect_count)
     $input.addEventListener('input', onInput)
