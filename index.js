@@ -1,5 +1,4 @@
 
-
 (function (){
     let presentWord;
     let inputWord;
@@ -12,8 +11,10 @@
     const $warn = document.querySelector('#warning');
     
     
+
     function nextStep() {
         presentWord = inputWord;
+        inputWord = ''
         $word.textContent = presentWord;
         document.querySelector('input').value = ''
     }
@@ -38,18 +39,15 @@
     }
 
     function isValidWord(){
-
+        
         
         
         if (typeof presentWord == "undefined"){
             presentWord = inputWord;
-            console.log(presentWord)
-            
             nextStep()
             return ;
         }
-        console.log(presentWord[presentWord.length - 1], inputWord[0])
-
+        //console.log(presentWord[presentWord.length - 1], inputWord[0]);
         if (presentWord[presentWord.length - 1] !== inputWord[0]){
             
             is_false = true;
@@ -69,38 +67,35 @@
             nextStep()
 
         }
-
-        else {
-            $warn.textContent = '다른 참가자 입력 대기중..'
-            presentWord = inputWord;
-            $word.textContent = presentWord;
-        }
         
     }
     
 
     const onClickButton =()=>{
 
-        if (typeof inputWord == "undefined"){
+        
+        console.log(inputWord, presentWord);
+        if (typeof inputWord == "undefined" || inputWord == ''){
             $warn.textContent = '입력하지 않았습니다.'
             return ;
         }
-        
+
         isValidWord();
+
         if (!is_false){
             countParticipants(Number($order.textContent), participants);
         }
         }
 
     const onInput = (event) =>{
-        
         inputWord = event.target.value;
+        
     }
 
-    document.querySelector('input').focus();
-    incorrect_count = make_incorrect_list()
-    console.log(incorrect_count)
-    $input.addEventListener('input', onInput)
+    
+    
+    incorrect_count = make_incorrect_list();
+    $input.addEventListener('input', onInput);
     $button.addEventListener('click', onClickButton);
     
     
