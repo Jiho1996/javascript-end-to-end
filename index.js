@@ -93,7 +93,7 @@
     }
 
     
-    
+    $input.focus();
     incorrect_count = make_incorrect_list();
     $input.addEventListener('input', onInput);
     $button.addEventListener('click', onClickButton);
