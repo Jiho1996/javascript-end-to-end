@@ -12,3 +12,9 @@ export const ASK_MESSAGE ={
 export const CHANCE = {
     LENGTH_CHANCE : 3
 };
+
+export const WORD = {
+    PRESENT_WORD : '',
+    INPUT_WORD : ''
+}
+
