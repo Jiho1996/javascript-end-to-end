@@ -24,8 +24,8 @@ function App(){
 }
 
     const getTurnParticipant = (num, participants) => {
-        console.log(num, participants)
         if (num + 1 > participants){
+            console.log(num + 1);
             $order.textContent = 1;
             return;
         }
@@ -84,7 +84,7 @@ function App(){
     
     const noticeCorrectAnswer = () =>{
         $warn.textContent = RESULT_TEXT.RESULT_SUCCESS;
-        getTurnParticipant($order.textContent, participants);
+        getTurnParticipant(parseInt($order.textContent), parseInt(participants));
     }
 
     const initEventListener = () => {
