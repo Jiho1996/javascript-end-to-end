@@ -6,7 +6,8 @@ import {WORD} from "../data/consts.js"
 function App(){
 
     this.init = () => {
-    
+        getTurnParticipant();
+        initEventListener();
     }
 
     this.presentWord = "";
@@ -23,7 +24,7 @@ function App(){
         return;
 }
 
-    function getTurnParticipant(num, participants){
+    const getTurnParticipant = (num, participants) => {
         if (num + 1 > participants){
             $order.textContent = 1;
             return;
@@ -68,11 +69,12 @@ function App(){
     
     }
 
-    
-    $input.addEventListener('keypress', onInput);
-    $button.addEventListener('click', onClickButton);
+    const initEventListener = () => {
+        $input.addEventListener('keypress', onInput);
+        $button.addEventListener('click', onClickButton);
+    }
     
 };
 
 const app = new App();
-app();
+app.init();
