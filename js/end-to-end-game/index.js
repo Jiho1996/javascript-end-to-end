@@ -24,12 +24,14 @@ function App(){
 }
 
     const getTurnParticipant = (num, participants) => {
+        console.log(num, participants)
         if (num + 1 > participants){
             $order.textContent = 1;
             return;
         }
         if (num + 1 <= participants){
             $order.textContent = num + 1;
+            console.log($order.textContent);
             return;
         }  
     }
@@ -48,12 +50,13 @@ function App(){
         const submittedAnswer = $("#input-text").value;
 
         if (WORD.PRESENT_WORD === ""){ // 처음
-            nextStep(this.presentWord, submittedAnswer)
+            nextStep(submittedAnswer)
             return ;
         }
 
         if (isValidWord(WORD.PRESENT_WORD, submittedAnswer)){
             noticeCorrectAnswer();
+            nextStep(submittedAnswer);
             return;
         }
         noticeWrongAnswer();
@@ -81,8 +84,7 @@ function App(){
     
     const noticeCorrectAnswer = () =>{
         $warn.textContent = RESULT_TEXT.RESULT_SUCCESS;
-        getTurnParticipant(incorrect[$order.textContent], $order.textContent);
-        nextStep();
+        getTurnParticipant($order.textContent, participants);
     }
 
     const initEventListener = () => {

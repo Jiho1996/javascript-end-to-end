@@ -18,7 +18,7 @@ export const isValidWord = (presentWord, inputWord) => {
 
 
 
-export const nextStep = (presentWord, inputWord) => {
+export const nextStep = (inputWord) => {
     WORD.PRESENT_WORD = inputWord;
     inputWord = ''
     $word.textContent = WORD.PRESENT_WORD;
