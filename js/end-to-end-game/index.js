@@ -48,19 +48,17 @@ function App(){
 
         const submittedAnswer = $("#input-text").value;
 
-        if (this.presentWord == ""){ // 처음
+        if (WORD.PRESENT_WORD === ""){ // 처음
             nextStep(this.presentWord, submittedAnswer)
             return ;
         }
 
-        if (isValidWord(submittedAnswer)){
+        if (isValidWord(WORD.PRESENT_WORD, submittedAnswer)){
             noticeCorrectAnswer();
             return;
         }
-        if (!isValidWord(submittedAnswer)){
-            noticeWrongAnswer();
-            return;
-        }
+        noticeWrongAnswer();
+        
     }
 
     const onInput = (event) =>{
