@@ -1,6 +1,5 @@
-import {$order, $warn, $word, $input} from '../data/elements.js'
+import {$word, $input} from '../data/elements.js'
 import {$} from '../utils.js'
-import {RESULT_TEXT} from '../data/consts.js'
 import {WORD} from "../data/consts.js"
 
 export const isValidWord = (presentWord, inputWord) => {
