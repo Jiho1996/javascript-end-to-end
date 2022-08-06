@@ -12,16 +12,15 @@ function App(){
         initEventListener();
     }
 
-    this.presentWord = "";
-
     const participants = Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
-    this.incorrect = new Array()
+    const incorrect = new Array(participants);
 
     const make_incorrect_list = () => {
-        for (let i = 0; i < this.incorrect.length ; ++i) {
-            this.incorrect[i] = 3;
+
+        for (let i = 0; i < incorrect.length ; ++i) {
+            incorrect[i] = 3;
     }
-        return;
+    return;
 }
 
     const getTurnParticipant = (num, participants) => {
@@ -32,9 +31,9 @@ function App(){
         if (num + 1 <= participants){
             $order.textContent = num + 1;
             return;
-        }
-        
+        }  
     }
+
     const isEmpthy = (text) => {
         if (text === ""){
             alert(RESULT_TEXT.RESULT_EMPTY)
@@ -70,9 +69,9 @@ function App(){
 
 
     const noticeWrongAnswer = () =>{
-        this.incorrect[$order.textContent] -= 1;
-        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${this.incorrect[$order.textContent]}`
-        if (this.incorrect[$order.textContent] < 0){
+        incorrect[$order.textContent] -= 1;
+        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${incorrect[$order.textContent]}`
+        if (incorrect[$order.textContent] < 0){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
         }
@@ -82,7 +81,7 @@ function App(){
     
     const noticeCorrectAnswer = () =>{
         $warn.textContent = RESULT_TEXT.RESULT_SUCCESS;
-        getTurnParticipant(this.incorrect[$order.textContent], $order.textContent);
+        getTurnParticipant(incorrect[$order.textContent], $order.textContent);
         nextStep();
     }
 
