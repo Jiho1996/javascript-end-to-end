@@ -4,22 +4,26 @@ import {isValidWord} from "./isValidInput.js"
 import {WORD} from "../data/consts.js"
 
 function App(){
-    let presentWord;
-    let inputWord;
-    let is_false = false
-    const participants = Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
+
+    this.init = () => {
     
-
-
-    function make_incorrect_list(){
-        const incorrect = new Array(participants)
-        for (let i = 0; i < incorrect.length ; ++i) {
-            incorrect[i] = 3;
     }
-        return incorrect
+
+    this.presentWord = "";
+    this.inputWord = "";
+    this.is_true = true;
+
+    const participants = Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
+    this.incorrect = new Array(participants)
+
+    const make_incorrect_list = () => {
+        for (let i = 0; i < incorrect.length ; ++i) {
+            this.incorrect[i] = 3;
+    }
+        return;
 }
 
-    function countParticipants(num, participants){
+    function getTurnParticipant(num, participants){
         if (num + 1 > participants){
             $order.textContent = 1;
             return;
@@ -31,57 +35,43 @@ function App(){
         
     }
 
-    // function isValidWord(){
-    //     if (typeof presentWord == "undefined"){
-    //         presentWord = inputWord;
-    //         nextStep()
-    //         return ;
-    //     }
-    //     if (presentWord[presentWord.length - 1] !== inputWord[0]){
-            
-    //         is_false = true;
-    //         incorrect_count[$order.textContent] -= 1;
-    //         $warn.textContent = `틀렸습니다. 남은기회 ${incorrect_count[$order.textContent]}`
-    //         if (incorrect_count[$order.textContent] < 0){
-    //             alert(`탈락자는 ${$order.textContent}번째 참가자`)
-    //             location.reload();
-    //         }
-    //         return;
-    //     }
-    //     else if (presentWord[presentWord.length - 1] === inputWord[0]){
-    //         $warn.textContent = '맞았습니다.'
-    //         is_false = false;
-    //         nextStep()
-    //     }
-    // }
-    
-
     const onClickButton =()=>{
 
+        is_true = isValidWord(WORD.PRESENT_WORD, WORD.INPUT_WORD);
         
-        //console.log(presentWord, inputWord);
+        if (is_true){
+            noticeCorrectAnswer();
+            return;
+            }
+        if (!is_true){
+            noticeWrongAnswer();
+            return;
+        }
 
-        is_false = isValidWord(WORD.PRESENT_WORD, WORD.INPUT_WORD);
-        
-        if (!is_false){
-            countParticipants(Number($order.textContent), participants);
-        }
-        }
+
+    }
 
     const onInput = (event) =>{
-        WORD.INPUT_WORD = event.target.value;
+        if (event.key !== "Enter"){
+            return;
+        }
+        WORD.INPUT_WORD = event.value;
         
     }
 
+
+    const noticeWrongAnswer = () =>{
+
+    }
     
-    $input.focus();
-    const incorrect_count = make_incorrect_list();
-    $input.addEventListener('input', onInput);
+    const noticeCorrectAnswer = () =>{
+    
+    }
+
+    
+    $input.addEventListener('keypress', onInput);
     $button.addEventListener('click', onClickButton);
     
-    
-    
-
 };
 
 const app = new App();

@@ -6,7 +6,7 @@ import {WORD} from "../data/consts.js"
 export function isValidWord(presentWord, inputWord){
     
 
-    if (presentWord == ""){
+    if (presentWord == ""){ // 처음
         nextStep(presentWord, inputWord)
         return ;
     }
@@ -25,22 +25,24 @@ export function isValidWord(presentWord, inputWord){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
         }
-        return true;
+        return false;
     }
     if (presentWord[presentWord.length - 1] === inputWord[0]){
         $warn.textContent = RESULT_TEXT.RESULT_SUCCESS;
         
         nextStep()
-        return false
+        return true;
     }
     
 }
 
+
+
 function nextStep(presentWord, inputWord) {
     
     WORD.PRESENT_WORD = inputWord;
-    console.log(presentWord, inputWord);
     inputWord = ''
     $word.textContent = presentWord;
     $('input').value = ''
+    $input.focus();
 }
