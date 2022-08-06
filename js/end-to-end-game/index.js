@@ -3,7 +3,7 @@ import { ASK_MESSAGE } from "../data/consts.js"
 import {isValidWord} from "./isValidInput.js"
 import {WORD} from "../data/consts.js"
 
-(function (){
+function App(){
     let presentWord;
     let inputWord;
     let is_false = false
@@ -82,8 +82,7 @@ import {WORD} from "../data/consts.js"
     
     
 
-}
+};
 
-
-
-)();
+const app = new App();
+app();
