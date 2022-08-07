@@ -1,6 +1,7 @@
 import {$word, $input} from '../data/elements.js'
 import {$} from '../utils.js'
 import {WORD} from "../data/consts.js"
+import { store } from '../store/store.js';
 
 export const isValidWord = (presentWord, inputWord) => {
 
@@ -19,6 +20,7 @@ export const isValidWord = (presentWord, inputWord) => {
 
 export const nextStep = (inputWord) => {
     WORD.PRESENT_WORD = inputWord;
+    store.setLocalStorage(WORD.PRESENT_WORD);
     inputWord = ''
     $word.textContent = WORD.PRESENT_WORD;
     $('input').value = ''

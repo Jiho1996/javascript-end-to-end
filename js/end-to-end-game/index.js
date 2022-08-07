@@ -1,9 +1,10 @@
-import {$button, $input, $order, $warn, $word} from "../data/elements.js"
+import {$button, $input, $order, $warn} from "../data/elements.js"
 import { ASK_MESSAGE } from "../data/consts.js"
 import {isValidWord, nextStep} from "./isValidInput.js"
 import {WORD} from "../data/consts.js"
 import {RESULT_TEXT} from '../data/consts.js'
 import { $ } from "../utils.js"
+import {store} from "../store/store.js"
 
 function App(){
 
