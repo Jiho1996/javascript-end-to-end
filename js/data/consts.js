@@ -18,3 +18,6 @@ export const WORD = {
     INPUT_WORD : ''
 }
 
+export const LIST = {
+    INCORRECT_LIST : []
+}

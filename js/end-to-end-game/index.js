@@ -1,7 +1,7 @@
 import {$button, $input, $order, $warn} from "../data/elements.js"
 import { ASK_MESSAGE } from "../data/consts.js"
 import {isValidWord, nextStep} from "./isValidInput.js"
-import {WORD} from "../data/consts.js"
+import {WORD, LIST} from "../data/consts.js"
 import {RESULT_TEXT} from '../data/consts.js'
 import { $ } from "../utils.js"
 import {store} from "../store/store.js"
@@ -10,18 +10,20 @@ function App(){
 
     this.init = () => {
         store.getLocalStorage()
+        console.log(WORD.PRESENT_WORD)
 
         make_incorrect_list();
         initEventListener();
+        console.log("init");
     }
 
-    const participants = Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
-    const incorrect = new Array(participants);
+    LIST.incorrect_list = new Array(participants);
+    console.log(LIST.incorrect_list);
 
     const make_incorrect_list = () => {
 
-        for (let i = 0; i < incorrect.length ; ++i) {
-            incorrect[i] = 3;
+        for (let i = 0; i < LIST.incorrect_list.length ; ++i) {
+            LIST.incorrect_list[i] = 3;
     }
     return;
 }
@@ -53,13 +55,13 @@ function App(){
         const submittedAnswer = $("#input-text").value;
 
         if (WORD.PRESENT_WORD === ""){ // 처음
-            nextStep(submittedAnswer, incorrect);
+            nextStep(submittedAnswer, LIST.incorrect_list);
             return ;
         }
 
         if (isValidWord(WORD.PRESENT_WORD, submittedAnswer)){
             noticeCorrectAnswer();
-            nextStep(submittedAnswer, incorrect);
+            nextStep(submittedAnswer, LIST.incorrect_list);
             return;
         }
         noticeWrongAnswer();
@@ -75,9 +77,10 @@ function App(){
 
 
     const noticeWrongAnswer = () =>{
-        incorrect[$order.textContent] -= 1;
-        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${incorrect[$order.textContent]}`
-        if (incorrect[$order.textContent] < 0){
+        LIST.incorrect_list[$order.textContent - 1] -= 1;
+        console.log(LIST.incorrect_list);
+        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${LIST.incorrect_list[$order.textContent]}`
+        if (LIST.incorrect_list[$order.textContent] < 0){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
         }
