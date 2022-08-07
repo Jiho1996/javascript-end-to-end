@@ -9,20 +9,20 @@ import {store} from "../store/store.js"
 function App(){
 
     this.init = () => {
+        
         store.getLocalStorage()
         make_incorrect_list();
         initEventListener();
     }
-    console.log(LIST.incorrect_list)
+    console.log(LIST.INCORRECT_LIST.length);
     const participants =  ( function () {
-        if (LIST.incorrect_list !== undefined){
+        if (LIST.INCORRECT_LIST.length !== 0){
             return;
         }
         return Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
     })();
     
     LIST.incorrect_list = new Array(participants);
-    console.log(LIST.incorrect_list);
 
     const make_incorrect_list = () => {
         for (let i = 0; i < LIST.incorrect_list.length ; ++i) {

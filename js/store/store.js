@@ -1,4 +1,4 @@
-import {WORD} from "../data/consts.js"
+import {WORD, LIST} from "../data/consts.js"
 
 export const store = {
     setLocalStorage(word, incorrectList){
@@ -7,7 +7,7 @@ export const store = {
     },
     getLocalStorage(){
         WORD.PRESENT_WORD = JSON.parse(localStorage.getItem("word"));
-        let ii = JSON.parse(localStorage.getItem("incorrectList"));
-        
+        LIST.INCORRECT_LIST = JSON.parse(localStorage.getItem("incorrectList"));
+        console.log(LIST.INCORRECT_LIST)
     },
 };
