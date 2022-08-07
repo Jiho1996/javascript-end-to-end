@@ -9,6 +9,8 @@ import {store} from "../store/store.js"
 function App(){
 
     this.init = () => {
+        store.getLocalStorage()
+
         make_incorrect_list();
         initEventListener();
     }
@@ -51,13 +53,13 @@ function App(){
         const submittedAnswer = $("#input-text").value;
 
         if (WORD.PRESENT_WORD === ""){ // 처음
-            nextStep(submittedAnswer)
+            nextStep(submittedAnswer, incorrect);
             return ;
         }
 
         if (isValidWord(WORD.PRESENT_WORD, submittedAnswer)){
             noticeCorrectAnswer();
-            nextStep(submittedAnswer);
+            nextStep(submittedAnswer, incorrect);
             return;
         }
         noticeWrongAnswer();

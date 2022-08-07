@@ -18,9 +18,9 @@ export const isValidWord = (presentWord, inputWord) => {
 
 
 
-export const nextStep = (inputWord) => {
+export const nextStep = (inputWord, incorrect_list) => {
     WORD.PRESENT_WORD = inputWord;
-    store.setLocalStorage(WORD.PRESENT_WORD);
+    store.setLocalStorage(WORD.PRESENT_WORD, incorrect_list);
     inputWord = ''
     $word.textContent = WORD.PRESENT_WORD;
     $('input').value = ''
