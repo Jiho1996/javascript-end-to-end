@@ -10,6 +10,12 @@
 8. 반복.
 9. 기회 3회 모두 차감시 탈락자 선정.
 
++)
+1. localStorage에 단어 저장
+2. localStorage에 incorrectList 저장
+3. localStorage에서 단어 불러오기
+4. localStorage에서 incorrectList 불러오기
+5. 새로고침해도 그대로인지 확인하기.
 
 
 <br>
