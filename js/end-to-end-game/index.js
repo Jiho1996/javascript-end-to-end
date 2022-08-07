@@ -10,18 +10,21 @@ function App(){
 
     this.init = () => {
         store.getLocalStorage()
-        console.log(WORD.PRESENT_WORD)
-
         make_incorrect_list();
         initEventListener();
-        console.log("init");
     }
-
+    console.log(LIST.incorrect_list)
+    const participants =  ( function () {
+        if (LIST.incorrect_list !== undefined){
+            return;
+        }
+        return Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
+    })();
+    
     LIST.incorrect_list = new Array(participants);
     console.log(LIST.incorrect_list);
 
     const make_incorrect_list = () => {
-
         for (let i = 0; i < LIST.incorrect_list.length ; ++i) {
             LIST.incorrect_list[i] = 3;
     }
@@ -44,17 +47,19 @@ function App(){
     const isEmpthy = (text) => {
         if (text === ""){
             alert(RESULT_TEXT.RESULT_EMPTY)
-            return;
+            return true;
         }
     }
 
     const submitAnswer =()=>{
 
-        isEmpthy($("#input-text"))
-
+        if (isEmpthy($("#input-text").value)){
+            return;
+        }
+        
         const submittedAnswer = $("#input-text").value;
-
-        if (WORD.PRESENT_WORD === ""){ // 처음
+        console.log(WORD.PRESENT_WORD);
+        if (WORD.PRESENT_WORD === null){ // 처음
             nextStep(submittedAnswer, LIST.incorrect_list);
             return ;
         }
