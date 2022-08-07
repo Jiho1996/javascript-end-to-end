@@ -8,6 +8,5 @@ export const store = {
     getLocalStorage(){
         WORD.PRESENT_WORD = JSON.parse(localStorage.getItem("word"));
         LIST.INCORRECT_LIST = JSON.parse(localStorage.getItem("incorrectList"));
-        console.log(LIST.INCORRECT_LIST)
     },
 };

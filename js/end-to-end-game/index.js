@@ -8,25 +8,25 @@ import {store} from "../store/store.js"
 
 function App(){
 
+    store.getLocalStorage()
+
     this.init = () => {
-        
-        store.getLocalStorage()
         make_incorrect_list();
         initEventListener();
     }
-    console.log(LIST.INCORRECT_LIST.length);
+    console.log(LIST.INCORRECT_LIST);
     const participants =  ( function () {
-        if (LIST.INCORRECT_LIST.length !== 0){
+        if (LIST.INCORRECT_LIST !== null){
             return;
         }
         return Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
     })();
     
-    LIST.incorrect_list = new Array(participants);
+    LIST.INCORRECT_LIST = new Array(participants);
 
     const make_incorrect_list = () => {
-        for (let i = 0; i < LIST.incorrect_list.length ; ++i) {
-            LIST.incorrect_list[i] = 3;
+        for (let i = 0; i < LIST.INCORRECT_LIST.length ; ++i) {
+            LIST.INCORRECT_LIST[i] = 3;
     }
     return;
 }
@@ -60,13 +60,13 @@ function App(){
         const submittedAnswer = $("#input-text").value;
         console.log(WORD.PRESENT_WORD);
         if (WORD.PRESENT_WORD === null){ // 처음
-            nextStep(submittedAnswer, LIST.incorrect_list);
+            nextStep(submittedAnswer, LIST.INCORRECT_LIST);
             return ;
         }
 
         if (isValidWord(WORD.PRESENT_WORD, submittedAnswer)){
             noticeCorrectAnswer();
-            nextStep(submittedAnswer, LIST.incorrect_list);
+            nextStep(submittedAnswer, LIST.INCORRECT_LIST);
             return;
         }
         noticeWrongAnswer();
@@ -82,10 +82,12 @@ function App(){
 
 
     const noticeWrongAnswer = () =>{
-        LIST.incorrect_list[$order.textContent - 1] -= 1;
-        console.log(LIST.incorrect_list);
-        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${LIST.incorrect_list[$order.textContent - 1]}`
-        if (LIST.incorrect_list[$order.textContent - 1] < 0){
+        LIST.INCORRECT_LIST[$order.textContent - 1] -= 1;
+        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${LIST.INCORRECT_LIST[$order.textContent - 1]}`
+        console.log(WORD.PRESENT_WORD, LIST.INCORRECT_LIST);
+        store.setLocalStorage(WORD.PRESENT_WORD, LIST.INCORRECT_LIST);
+        console.log(LIST.INCORRECT_LIST, LIST.INCORRECT_LIST)
+        if (LIST.INCORRECT_LIST[$order.textContent - 1] < 0){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
         }
