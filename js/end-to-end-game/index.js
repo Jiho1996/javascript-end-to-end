@@ -85,7 +85,7 @@ function App(){
         LIST.incorrect_list[$order.textContent - 1] -= 1;
         console.log(LIST.incorrect_list);
         $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${LIST.incorrect_list[$order.textContent - 1]}`
-        if (LIST.incorrect_list[$order.textContent] < 0){
+        if (LIST.incorrect_list[$order.textContent - 1] < 0){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
         }
