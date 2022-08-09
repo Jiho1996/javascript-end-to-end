@@ -17,6 +17,7 @@
 3. localStorage에서 단어 불러오기
 4. localStorage에서 incorrectList 불러오기
 5. 새로고침해도 그대로인지 확인하기.
+6. 틀린 배열 리스트, 현재 단어 다시 핸들링 하기.
 
 
 <br>

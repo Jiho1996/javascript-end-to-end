@@ -8,27 +8,32 @@ import {store} from "../store/store.js"
 
 function App(){
 
-    store.getLocalStorage()
+    // 상수를 하나 분리 해서 값을 계속 바꿔치기 하는 방법이 옳은건가..?
+    // 함수 분리 좀 더 필요
+    // 함수 구조화 조금 더 필요.
+
+    
 
     this.init = () => {
-        make_incorrect_list();
+        console.log(make_init_incorrect_list());
+        store.setLocalArrayStorage(make_init_incorrect_list());
         initEventListener();
     }
-    console.log(LIST.INCORRECT_LIST);
+
     const participants =  ( function () {
-        if (LIST.INCORRECT_LIST !== null){
+        if (store.getLocalArrayStorage() !== null){
             return;
         }
         return Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
     })();
     
-    LIST.INCORRECT_LIST = new Array(participants);
 
-    const make_incorrect_list = () => {
-        for (let i = 0; i < LIST.INCORRECT_LIST.length ; ++i) {
-            LIST.INCORRECT_LIST[i] = 3;
+    const make_init_incorrect_list = () => {
+        let incorrect_list = new Array(participants)
+        for (let i = 0; i < incorrect_list.length ; ++i) {
+            incorrect_list[i] = 3;
     }
-    return;
+    return incorrect_list;
 }
 
     const getTurnParticipant = (num, participants) => {
@@ -82,11 +87,16 @@ function App(){
 
 
     const noticeWrongAnswer = () =>{
+        store.getLocalArrayStorage();
         LIST.INCORRECT_LIST[$order.textContent - 1] -= 1;
         $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${LIST.INCORRECT_LIST[$order.textContent - 1]}`
-        console.log(WORD.PRESENT_WORD, LIST.INCORRECT_LIST);
-        store.setLocalStorage(WORD.PRESENT_WORD, LIST.INCORRECT_LIST);
-        console.log(LIST.INCORRECT_LIST, LIST.INCORRECT_LIST)
+        // store.setLocalWordStorage(WORD.PRESENT_WORD);
+        console.log(store.getLocalArrayStorage().filter( (ele, idx) => {
+            if (idx === $order.textContent - 1){
+                consol
+            }
+        }));
+        //store.setLocalArrayStorage()
         if (LIST.INCORRECT_LIST[$order.textContent - 1] < 0){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
