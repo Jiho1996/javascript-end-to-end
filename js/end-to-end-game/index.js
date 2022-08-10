@@ -31,15 +31,26 @@ function App(){
     }
     return incorrect_list;
 }
+
     const incorrectHandleling = function (){
         let _incorrect_list = new Array(participants)
         for (let i = 0; i < _incorrect_list.length ; ++i) {
             _incorrect_list[i] = 3;
     }
-        return function plusTarget(num){
+        return function (num){
+            if (num === undefined){
+                return _incorrect_list;
+            }
+            if (_incorrect_list[num] === 0){
+                return false;
+            }
             _incorrect_list[num] -= 1;
+            return _incorrect_list;
         }
     }
+
+    let getIncorrectList = incorrectHandleling();
+
     const getTurnParticipant = (num, participants) => {
         if (num + 1 > participants){
             console.log(num + 1);
@@ -61,13 +72,12 @@ function App(){
     }
 
     const submitAnswer =()=>{
-
+        console.log($("#input-text").value);
         if (isEmpthy($("#input-text").value)){
             return;
         }
         
         const submittedAnswer = $("#input-text").value;
-        console.log(WORD.PRESENT_WORD);
         if (WORD.PRESENT_WORD === null){ // 처음
             nextStep(submittedAnswer, LIST.INCORRECT_LIST);
             return ;
@@ -93,16 +103,19 @@ function App(){
         store.getLocalArrayStorage();
         $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${LIST.INCORRECT_LIST[$order.textContent - 1]}`
         // store.setLocalWordStorage(WORD.PRESENT_WORD);
-        console.log(typeof store.getLocalArrayStorage());// 객체로 저장됨.
-        console.log(store.getLocalArrayStorage().values(object))
-        console.log(store.getLocalArrayStorage().splice($order.textContent - 1, 1, store.getLocalArrayStorage()[$order.textContent - 1] - 1));
-        store.setLocalArrayStorage(store.getLocalArrayStorage().splice($order.textContent - 1, 1, store.getLocalArrayStorage()[$order.textContent - 1] - 1))
-        console.log(store.getLocalArrayStorage())
-        //store.setLocalArrayStorage()
-        if (LIST.INCORRECT_LIST[$order.textContent - 1] < 0){
+        
+        if(!(getIncorrectList($order.textContent - 1))){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
         }
+        console.log(getIncorrectList());
+        // console.log(typeof store.getLocalArrayStorage());// 객체로 저장됨.
+        // console.log(store.getLocalArrayStorage().values(object))
+        // console.log(store.getLocalArrayStorage().splice($order.textContent - 1, 1, store.getLocalArrayStorage()[$order.textContent - 1] - 1));
+        // store.setLocalArrayStorage(store.getLocalArrayStorage().splice($order.textContent - 1, 1, store.getLocalArrayStorage()[$order.textContent - 1] - 1))
+        // console.log(store.getLocalArrayStorage())
+        //store.setLocalArrayStorage()
+        store.setLocalArrayStorage(getIncorrectList());
         return;
 
     }
