@@ -101,20 +101,13 @@ function App(){
 
     const noticeWrongAnswer = () =>{
         store.getLocalArrayStorage();
-        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${LIST.INCORRECT_LIST[$order.textContent - 1]}`
-        // store.setLocalWordStorage(WORD.PRESENT_WORD);
         
         if(!(getIncorrectList($order.textContent - 1))){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
         }
+        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
         console.log(getIncorrectList());
-        // console.log(typeof store.getLocalArrayStorage());// 객체로 저장됨.
-        // console.log(store.getLocalArrayStorage().values(object))
-        // console.log(store.getLocalArrayStorage().splice($order.textContent - 1, 1, store.getLocalArrayStorage()[$order.textContent - 1] - 1));
-        // store.setLocalArrayStorage(store.getLocalArrayStorage().splice($order.textContent - 1, 1, store.getLocalArrayStorage()[$order.textContent - 1] - 1))
-        // console.log(store.getLocalArrayStorage())
-        //store.setLocalArrayStorage()
         store.setLocalArrayStorage(getIncorrectList());
         return;
 
