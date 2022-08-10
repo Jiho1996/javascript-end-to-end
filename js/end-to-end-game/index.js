@@ -72,13 +72,13 @@ function App(){
     }
 
     const submitAnswer =()=>{
-        console.log($("#input-text").value);
         if (isEmpthy($("#input-text").value)){
             return;
         }
         
         const submittedAnswer = $("#input-text").value;
-        if (WORD.PRESENT_WORD === null){ // 처음
+        console.log(WORD.PRESENT_WORD, submittedAnswer)
+        if (WORD.PRESENT_WORD === ""){// 처음
             nextStep(submittedAnswer, LIST.INCORRECT_LIST);
             return ;
         }
