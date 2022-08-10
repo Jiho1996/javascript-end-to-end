@@ -1,7 +1,7 @@
 import { $button, $input, $order, $warn } from "../data/elements.js"
 import { ASK_MESSAGE } from "../data/consts.js"
 import { isValidWord, nextStep } from "./isValidInput.js"
-import { WORD, LIST } from "../data/consts.js"
+import { WORD } from "../data/consts.js"
 import { RESULT_TEXT } from '../data/consts.js'
 import { $ } from "../utils.js"
 import { store } from "../store/store.js"
@@ -79,13 +79,13 @@ function App(){
         const submittedAnswer = $("#input-text").value;
         console.log(WORD.PRESENT_WORD, submittedAnswer)
         if (WORD.PRESENT_WORD === ""){// 처음
-            nextStep(submittedAnswer, LIST.INCORRECT_LIST);
+            nextStep(submittedAnswer);
             return ;
         }
 
         if (isValidWord(WORD.PRESENT_WORD, submittedAnswer)){
             noticeCorrectAnswer();
-            nextStep(submittedAnswer, LIST.INCORRECT_LIST);
+            nextStep(submittedAnswer);
             return;
         }
         noticeWrongAnswer();
@@ -103,8 +103,10 @@ function App(){
         store.getLocalArrayStorage();
         
         if(!(getIncorrectList($order.textContent - 1))){
+            window.localStorage.clear();
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
+            return;
         }
         $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
         console.log(getIncorrectList());

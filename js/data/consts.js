@@ -8,7 +8,6 @@ export const ASK_MESSAGE ={
     PARTICIPATION_PEOPLE : '참가 인원은 몇명인가요?'
 };
 
-
 export const CHANCE = {
     LENGTH_CHANCE : 3
 };
@@ -16,8 +15,4 @@ export const CHANCE = {
 export const WORD = {
     PRESENT_WORD : '',
     INPUT_WORD : ''
-}
-
-export const LIST = {
-    INCORRECT_LIST : []
 }
