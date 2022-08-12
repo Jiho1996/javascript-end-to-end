@@ -78,6 +78,13 @@ function App(){
         }
     }
 
+    const isFirstTry = (text) => {
+        if (text.length === 0){
+            return true;
+        }
+        return false;
+    }
+
     const submitAnswer =()=>{
         const submittedAnswer = $("#input-text").value;
 
@@ -85,7 +92,7 @@ function App(){
             return;
         }
 
-        if (WORD.PRESENT_WORD.length === 0){// 처음
+        if (isFirstTry(WORD.PRESENT_WORD)){// 처음
             nextStep(submittedAnswer);
             return ;
         }
