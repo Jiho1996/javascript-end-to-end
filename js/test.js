@@ -1,17 +1,28 @@
-participants = 5
-const incorrectHandleling = function (){
-    let _incorrect_list = new Array(participants)
-    for (let i = 0; i < _incorrect_list.length ; ++i) {
-        _incorrect_list[i] = 3;
+participants = 5;
+
+const getParticipantsArray = (arr) =>{
+    for (let i = 0; i < arr.length ; ++i) {
+        arr[i] = 3;
 }
-    return function plusTarget(num){
+    return arr
+}
+
+const incorrectHandleling = function (){
+    const _incorrectList = new Array(participants)
+    _incorrectList = getParticipantsArray(_incorrectList);
+    
+    return function (num){
         if (num === undefined){
-            return _incorrect_list;
+            return _incorrectList;
         }
-        _incorrect_list[num] -= 1;
-        return _incorrect_list;
+        if (_incorrectList[num] === 0){
+            return false;
+        }
+        _incorrectList[num] -= 1;
+        return _incorrectList;
     }
 }
-let i = incorrectHandleling();
-console.log(i(1));
-console.log(i());
+
+let a = incorrectHandleling();
+console.log(a(1));
+console.log(a(1));
