@@ -1,6 +1,7 @@
 export const RESULT_TEXT = {
     RESULT_SUCCESS : '맞았습니다.',
     RESULT_FAIL : '틀렸습니다.',
+    RESULT_DUPLICATED : '이미 사용한 답 입니다.',
     RESULT_EMPTY : '입력을 해주세요.'
 };
 

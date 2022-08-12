@@ -85,10 +85,15 @@ function App(){
         return false;
     }
 
+    const isDuplicated = (text) => {
+        if (WORD.PRESENT_WORD.includes(text)) return true
+        return false
+    }
+
     const submitAnswer =()=>{
         const submittedAnswer = $("#input-text").value;
 
-        if (isEmpthy($("#input-text").value)){
+        if (isEmpthy(submittedAnswer)){
             return;
         }
 
@@ -108,16 +113,24 @@ function App(){
     }
 
     const noticeResult = (presentWord, inputWord) =>{
+        if (isDuplicated(inputWord)){
+            noticeWrongAnswer(1);
+            return;
+        }
+
         if (isValidWord(presentWord, inputWord)){
             noticeCorrectAnswer();
             nextStep(inputWord);
             return ;
         }
-        noticeWrongAnswer();
-        return ;
+
+        if (!(isValidWord(presentWord, inputWord))){
+            noticeWrongAnswer(0);
+            return ;
+        }
     }
 
-    const noticeWrongAnswer = () =>{
+    const noticeWrongAnswer = (num) =>{
         store.getLocalArrayStorage();
         
         if(!(getIncorrectList($order.textContent - 1))){
@@ -127,7 +140,8 @@ function App(){
             return;
             // location.reload해도 return 꼭 적기.
         }
-        $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
+        if (num === 0)$warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
+        if (num === 1)$warn.textContent = RESULT_TEXT.RESULT_DUPLICATED + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
         store.setLocalArrayStorage(getIncorrectList());
         return;
 
