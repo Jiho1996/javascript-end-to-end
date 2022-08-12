@@ -54,7 +54,6 @@ function App(){
     // {   
     //     const presentWordArray = new Array();
     //     return (word) => {
-    //         if wo
     //         presentWordArray.push(word);
     //     }
     // }
@@ -80,23 +79,18 @@ function App(){
     }
 
     const submitAnswer =()=>{
+        const submittedAnswer = $("#input-text").value;
+
         if (isEmpthy($("#input-text").value)){
             return;
         }
-        
-        const submittedAnswer = $("#input-text").value;
-        console.log(WORD.PRESENT_WORD, submittedAnswer)
-        if (WORD.PRESENT_WORD === ""){// 처음
+
+        if (WORD.PRESENT_WORD.length === 0){// 처음
             nextStep(submittedAnswer);
             return ;
         }
-
-        if (isValidWord(WORD.PRESENT_WORD, submittedAnswer)){
-            noticeCorrectAnswer();
-            nextStep(submittedAnswer);
-            return;
-        }
-        noticeWrongAnswer();
+        noticeResult(WORD.PRESENT_WORD[WORD.PRESENT_WORD.length - 1], submittedAnswer);
+        return;
     }
 
     const onInput = (event) =>{
@@ -104,6 +98,16 @@ function App(){
             return;
         }
         submitAnswer(); 
+    }
+
+    const noticeResult = (presentWord, inputWord) =>{
+        if (isValidWord(presentWord, inputWord)){
+            noticeCorrectAnswer();
+            nextStep(inputWord);
+            return ;
+        }
+        noticeWrongAnswer();
+        return ;
     }
 
     const noticeWrongAnswer = () =>{

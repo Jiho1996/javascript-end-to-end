@@ -13,6 +13,5 @@ export const CHANCE = {
 };
 
 export const WORD = {
-    PRESENT_WORD : '',
-    INPUT_WORD : ''
+    PRESENT_WORD : new Array()
 }
