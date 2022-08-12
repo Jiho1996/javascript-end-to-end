@@ -1,7 +1,6 @@
 import {$word, $input} from '../data/elements.js'
 import {$} from '../utils.js'
 import {WORD} from "../data/consts.js"
-import { store } from '../store/store.js';
 
 export const isValidWord = (presentWord, inputWord) => {
 

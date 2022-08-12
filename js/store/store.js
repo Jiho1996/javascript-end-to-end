@@ -1,4 +1,3 @@
-import {WORD} from "../data/consts.js"
 
 export const store = {
     setLocalWordStorage(word){

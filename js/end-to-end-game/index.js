@@ -13,7 +13,6 @@ function App(){
     // 함수 구조화 조금 더 필요.
 
     this.init = () => {
-        store.setLocalArrayStorage(make_init_incorrect_list());
         initEventListener();
     }
 
@@ -23,33 +22,42 @@ function App(){
         }
         return Number(prompt(ASK_MESSAGE.PARTICIPATION_PEOPLE));
     })();
-    
-    const make_init_incorrect_list = () => {
-        let incorrect_list = new Array(participants)
-        for (let i = 0; i < incorrect_list.length ; ++i) {
-            incorrect_list[i] = 3;
+
+    const getParticipantsArray = (arr) =>{
+        for (let i = 0; i < arr.length ; ++i) {
+            arr[i] = 3;
     }
-    return incorrect_list;
-}
+        return arr
+    }
 
     const incorrectHandleling = function (){
-        let _incorrect_list = new Array(participants)
-        for (let i = 0; i < _incorrect_list.length ; ++i) {
-            _incorrect_list[i] = 3;
-    }
+        let _incorrectList = new Array(participants)
+        _incorrectList = getParticipantsArray(_incorrectList);
+
         return function (num){
             if (num === undefined){
-                return _incorrect_list;
+                return _incorrectList;
             }
-            if (_incorrect_list[num] === 0){
+            if (_incorrectList[num] === 0){
                 return false;
             }
-            _incorrect_list[num] -= 1;
-            return _incorrect_list;
+            _incorrectList[num] -= 1;
+            return _incorrectList;
         }
     }
 
     let getIncorrectList = incorrectHandleling();
+
+    // let getPresentWord  = presentWordHandling();
+
+    // const presentWordHandling = () => 
+    // {   
+    //     const presentWordArray = new Array();
+    //     return (word) => {
+    //         if wo
+    //         presentWordArray.push(word);
+    //     }
+    // }
 
     const getTurnParticipant = (num, participants) => {
         if (num + 1 > participants){
@@ -89,7 +97,6 @@ function App(){
             return;
         }
         noticeWrongAnswer();
-        
     }
 
     const onInput = (event) =>{
@@ -107,9 +114,9 @@ function App(){
             alert(`탈락자는 ${$order.textContent}번째 참가자`)
             location.reload();
             return;
+            // location.reload해도 return 꼭 적기.
         }
         $warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
-        console.log(getIncorrectList());
         store.setLocalArrayStorage(getIncorrectList());
         return;
 
