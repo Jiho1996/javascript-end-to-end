@@ -5,6 +5,7 @@ import { WORD } from "../data/consts.js"
 import { RESULT_TEXT } from '../data/consts.js'
 import { $ } from "../utils.js"
 import { store } from "../store/store.js"
+import {errorType} from "../data/consts.js"
 
 function App(){
 
@@ -14,7 +15,20 @@ function App(){
 
     this.init = () => {
         initEventListener();
+        
     }
+
+    const countTime = () =>{
+
+        let _timeCounter = 10
+        return function(){
+            $("#time").innerHTML =`${_timeCounter}`;
+            if (_timeCounter > 0 ) {_timeCounter -= 1; return;}
+            if (_timeCounter === 0 ) {noticeWrongAnswer(errorType.timeOut);_timeCounter = 10; return;}
+        }
+    }
+
+    const timeStart = countTime();
 
     const participants =  ( function () {
         if (store.getLocalArrayStorage() !== null){
@@ -102,6 +116,7 @@ function App(){
             return ;
         }
         noticeResult(WORD.PRESENT_WORD[WORD.PRESENT_WORD.length - 1], submittedAnswer);
+        setInterval(timeStart, 1000);
         return;
     }
 
@@ -114,7 +129,7 @@ function App(){
 
     const noticeResult = (presentWord, inputWord) =>{
         if (isDuplicated(inputWord)){
-            noticeWrongAnswer(1);
+            noticeWrongAnswer(errorType.Duplicated);
             return;
         }
 
@@ -125,7 +140,7 @@ function App(){
         }
 
         if (!(isValidWord(presentWord, inputWord))){
-            noticeWrongAnswer(0);
+            noticeWrongAnswer(errorType.Incorrect);
             return ;
         }
     }
@@ -140,8 +155,9 @@ function App(){
             return;
             // location.reload해도 return 꼭 적기.
         }
-        if (num === 0)$warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
-        if (num === 1)$warn.textContent = RESULT_TEXT.RESULT_DUPLICATED + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
+        if (num === 0)$warn.textContent = RESULT_TEXT.RESULT_DUPLICATED + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
+        if (num === 1)$warn.textContent = RESULT_TEXT.RESULT_FAIL + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
+        if (num === 2)$warn.textContent = RESULT_TEXT.RESULT_TIME_OUT + `남은기회 ${getIncorrectList()[$order.textContent - 1]}`
         store.setLocalArrayStorage(getIncorrectList());
         return;
 
