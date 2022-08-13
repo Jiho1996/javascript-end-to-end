@@ -15,17 +15,25 @@ function App(){
 
     this.init = () => {
         initEventListener();
-        
+        setInterval(timeStart.handleTime, 1000);
     }
 
     const countTime = () =>{
 
-        let _timeCounter = 10
-        return function(){
+        let _timeCounter = 5;
+        return {
+            handleTime : () => {
             $("#time").innerHTML =`${_timeCounter}`;
-            if (_timeCounter > 0 ) {_timeCounter -= 1; return;}
-            if (_timeCounter === 0 ) {noticeWrongAnswer(errorType.timeOut);_timeCounter = 10; return;}
-        }
+            if ( _timeCounter > 0 ) {_timeCounter -= 1; return;}
+            if ( _timeCounter === 0 ) {noticeWrongAnswer(errorType.timeOut);_timeCounter = 5; return;};
+            },
+            
+            setInitial : () => {
+                _timeCounter = 5;
+                return;
+            },
+    }
+    
     }
 
     const timeStart = countTime();
@@ -116,7 +124,6 @@ function App(){
             return ;
         }
         noticeResult(WORD.PRESENT_WORD[WORD.PRESENT_WORD.length - 1], submittedAnswer);
-        setInterval(timeStart, 1000);
         return;
     }
 
@@ -166,6 +173,7 @@ function App(){
     const noticeCorrectAnswer = () =>{
         $warn.textContent = RESULT_TEXT.RESULT_SUCCESS;
         getTurnParticipant(parseInt($order.textContent), parseInt(participants));
+        timeStart.setInitial();
     }
 
     const initEventListener = () => {
