@@ -1,5 +1,5 @@
 import { $button, $input, $order, $warn } from "../data/elements.js"
-import { ASK_MESSAGE } from "../data/consts.js"
+import { ASK_MESSAGE, CHANCE } from "../data/consts.js"
 import { isValidWord, nextStep } from "./isValidInput.js"
 import { WORD } from "../data/consts.js"
 import { RESULT_TEXT } from '../data/consts.js'
@@ -33,6 +33,7 @@ function App(){
                 return;
             },
     }
+    // private 처리하기 위함, handletime과 setinitial분리 setinitial은 맞출시 를 위함.
     
     }
 
@@ -46,9 +47,7 @@ function App(){
     })();
 
     const getParticipantsArray = (arr) =>{
-        for (let i = 0; i < arr.length ; ++i) {
-            arr[i] = 3;
-    }
+        arr.fill(CHANCE.LENGTH_CHANCE);
         return arr
     }
 
@@ -57,6 +56,7 @@ function App(){
         _incorrectList = getParticipantsArray(_incorrectList);
 
         return function (num){
+            console.log(_incorrectList);
             if (num === undefined){
                 return _incorrectList;
             }
